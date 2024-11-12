@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crop Prediction Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='result_styles.css') }}">
+</head>
+<body>
+    <!-- Background Video -->
+    <video autoplay loop muted playsinline class="background-video">
+        <source src="{{ url_for('static', filename='background2.mp4') }}" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <div class="result-container">
+        <div class="result-left">
+            <h1>{{ crop | title }}</h1>
+            <p id="description">{{ details['description'] }}</p>
+        </div>
+        <div class="result-right">
+            <div class="slideshow">
+                {% for i in range(1, 5) %}
+                    <div class="slide">
+                        <img src="{{ url_for('static', filename='images/' + crop + '/' + i ~ '.jpg') }}" alt="{{ crop }}">
+<img src="{{ url_for('static', filename='images/' + crop + '/' + i ~ '.jpeg') }}" alt="{{ crop }}">
+
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Read Aloud Button -->
+    <button class="read-aloud-btn" onclick="speakDescription()">🔊</button>
+
+    <!-- Slideshow script -->
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.style.display = (i === index) ? 'block' : 'none';
+            });
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % slides.length;
+            showSlide(currentSlide);
+        }
+
+        showSlide(currentSlide);
+        setInterval(nextSlide, 3000);
+
+        // Text-to-speech function
+        let voices = []; // Array to store available voices
+
+        // Load voices once they are available
+        function loadVoices() {
+            voices = speechSynthesis.getVoices();
+            console.log(voices); // Log available voices to check their names
+
+            // If voices are not loaded yet, listen for the voiceschanged event
+            if (voices.length === 0) {
+                speechSynthesis.onvoiceschanged = function() {
+                    voices = speechSynthesis.getVoices();
+                    console.log(voices); // Log voices when they are loaded
+                };
+            }
+        }
+
+        // Load voices when the page loads
+        loadVoices();
+
+        // Text-to-speech function that speaks the description
+        function speakDescription() {
+            const description = document.getElementById('description').textContent;
+            const utterance = new SpeechSynthesisUtterance(description);
+
+            // Use the loaded voices directly
+            utterance.voice = voices.find(voice => voice.name === 'Priya (Female)'); // Example: select a specific voice
+
+            // Speak the description
+            speechSynthesis.speak(utterance);
+        }
+    </script>
+</body>
+</html>

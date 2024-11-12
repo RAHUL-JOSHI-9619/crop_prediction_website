@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+
+<!-- Background Video -->
+<video autoplay muted loop id="background-video">
+    <source src="{{ url_for('static', filename='background.mp4') }}" type="video/mp4">
+</video>
+
+<!-- Form for input fields -->
+<div class="form-container">
+    <form method="POST">
+        <div class="field-group">
+            <label>Nitrogen (int)</label>
+            <input type="number" name="nitrogen" required>
+        </div>
+        <div class="field-group">
+            <label>Phosphorous (int)</label>
+            <input type="number" name="phosphorous" required>
+        </div>
+        <div class="field-group">
+            <label>Potassium (int)</label>
+            <input type="number" name="potassium" required>
+        </div>
+        <div class="field-group">
+            <label>Temperature (float)</label>
+            <input type="number" name="temperature" step="any" required>
+        </div>
+        <div class="field-group">
+            <label>Humidity (float)</label>
+            <input type="number" name="humidity" step="any" required>
+        </div>
+        <div class="field-group">
+            <label>pH (float)</label>
+            <input type="number" name="ph" step="any" required>
+        </div>
+        <div class="field-group">
+            <label>Rainfall (float)</label>
+            <input type="number" name="rainfall" step="any" required>
+        </div>
+
+
+    </form>
+
+    <form method="POST"><button type="submit">Predict</button></form>
+    {% if prediction %}
+    <div class="result">
+        Predicted class for the sample: <strong>{{ prediction }}</strong>
+    </div>
+    {% endif %}
+</div>
+
+</body>
+</html>
