@@ -96,6 +96,10 @@ def result():
         'pomegranate': {
             'description': 'You can cultivate this crop for your given soil conditions. Pomegranate is a nutritious fruit known for its juicy seeds and high antioxidant content. Pomegranate typically takes around 120-150 days to mature. An acre needs about 800-1,000 liters of water daily. Fertilizers include potassium and nitrogen.'
         },
+        'rice': {
+            'description': 'You can cultivate this crop for your given soil conditions. Rice is a staple grain consumed worldwide, known for its versatility in various dishes. It typically takes around 100-180 days to mature, depending on the variety. Rice fields require flooded conditions, using approximately 3,000-5,000 liters of water per acre daily. Fertilizers include nitrogen, phosphorus, and potassium.'
+        },
+
         'watermelon': {
             'description': 'You can cultivate this crop for your given soil conditions. Watermelons take around 80-90 days to mature. They require about 1,200-1,500 liters of water per acre daily. Fertilizers should include a balanced NPK with potassium for sweeter fruits.'
         }
